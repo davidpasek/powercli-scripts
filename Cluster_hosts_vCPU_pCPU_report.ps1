@@ -40,7 +40,7 @@ foreach ($esx in (Get-VMHost | Sort-Object Name)) {
 
   $message = "UTC date time: $date Cluster: $cluster_name ESX name: $esx.Name pCPUs: $pCPUs vCPUs: $vCPUs vCPU/pCPU ratio: $CPU_ratio"
   Write-Output $message
-  Send-LogInsightMessage "192.168.4.51" $message
+  Send-LogInsightMessage $loginsight $message
 }
 
 disconnect-viserver -Server $vc -Force -Confirm:$false
