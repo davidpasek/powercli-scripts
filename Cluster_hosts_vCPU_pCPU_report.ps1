@@ -1,6 +1,5 @@
 ﻿# The script will calculate the ESXi host CPU core to VM vCPU oversubscription and create a HTML report
 #
-# Version 1.0 Magnus Andersson RTS
 #————————————————
 # Start of script parameters section
 #
