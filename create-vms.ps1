@@ -5,8 +5,8 @@
 #
 # vCenter Server configuration
 $vcenter = “vc01.home.uw.cz“
-$vcenteruser = “cdave“
-$vcenterpw = “TheJava4u“
+$vcenteruser = “readwrite“
+$vcenterpw = “readwrite“
 #
 # Specify number of VMs you want to create
 $vm_count = “50“
@@ -57,6 +57,6 @@ $vc = connect-viserver $vcenter -User $vcenteruser -Password $vcenterpw
   $ESXi=Get-Cluster $Cluster | Get-VMHost -state connected | Get-Random
   write-host “Creation of VM $VM_name initiated”  -foreground green
   New-VM -Name $VM_Name -VMHost $ESXi -numcpu $numcpu -MemoryMB $MBram -DiskMB $MBguestdisk -DiskStorageFormat $Typeguestdisk -Datastore $ds -GuestId $guestOS -Location $Folder
-  #write-host “Power On of the  VM $VM_name initiated”  -foreground green
+  #write-host “Power On of the  VM $VM_name initiated" -foreground green
   #Start-VM -VM $VM_name -confirm:$false -RunAsync
 }

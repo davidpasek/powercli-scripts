@@ -1,5 +1,4 @@
 ﻿# The script will calculate the ESXi host CPU core to VM vCPU oversubscription and create a HTML report
-#
 #————————————————
 # Start of script parameters section
 #
@@ -19,7 +18,7 @@ $o = Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false
 $vc = connect-viserver $vcenter -User $vcenteruser -Password $vcenterpw
 #
 
-#cls
+Clear-Host
 
 # Send Message to LogInsight
 function Send-LogInsightMessage ([string]$ip, [string]$message)
@@ -38,8 +37,13 @@ foreach ($esx in (Get-VMHost | Sort-Object Name)) {
   $cluster_name = get-cluster -VMHost $esx
 
   $message = "UTC date time: $date Cluster: $cluster_name ESX name: $esx.Name pCPUs: $pCPUs vCPUs: $vCPUs vCPU/pCPU ratio: $CPU_ratio"
-  Write-Output $message
-  Send-LogInsightMessage $loginsight $message
+  Write-Host $message -Foreground Green
+  Try {
+    Send-LogInsightMessage $loginsight $message
+  } Catch {
+    Write-Host "Cannot connect to LogInsight. Breaking the script." -ForegroundColor Red
+    Break
+  }
 }
 
 disconnect-viserver -Server $vc -Force -Confirm:$false
