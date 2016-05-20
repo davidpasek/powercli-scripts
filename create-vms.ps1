@@ -38,6 +38,12 @@ $Cluster = “TEST“
 # Specify the VM name to the left of the – sign
 $VM_prefix = “TEST-“
 #
+# Specify the VM provisioning type (sync/async) - true = async (parallel), false = sync (sequentional)
+$VM_create_async = $true
+#
+# Specify if VM should be Power On 
+$VM_power_on = $false
+#
 # End of script parameter section
 #—————————————— #
 
@@ -55,8 +61,12 @@ $vc = connect-viserver $vcenter -User $vcenteruser -Password $vcenterpw
   $VM_postfix=”{0:D2}” -f $_
   $VM_name= $VM_prefix + $VM_postfix
   $ESXi=Get-Cluster $Cluster | Get-VMHost -state connected | Get-Random
+
   write-host “Creation of VM $VM_name initiated”  -foreground green
-  New-VM -Name $VM_Name -VMHost $ESXi -numcpu $numcpu -MemoryMB $MBram -DiskMB $MBguestdisk -DiskStorageFormat $Typeguestdisk -Datastore $ds -GuestId $guestOS -Location $Folder
-  #write-host “Power On of the  VM $VM_name initiated" -foreground green
-  #Start-VM -VM $VM_name -confirm:$false -RunAsync
+  New-VM -RunAsync:$VM_create_async -Name $VM_Name -VMHost $ESXi -numcpu $numcpu -MemoryMB $MBram -DiskMB $MBguestdisk -DiskStorageFormat $Typeguestdisk -Datastore $ds -GuestId $guestOS -Location $Folder
+
+  if ($VM_power_on) {
+    write-host “Power On of the  VM $VM_name initiated" -foreground green
+    Start-VM -VM $VM_name -confirm:$false -RunAsync
+  }
 }
