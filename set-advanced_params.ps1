@@ -32,3 +32,5 @@ foreach ($vm_name in $vm_names) {
   }
 
 }
+
+Disconnect-VIserver -Server $VC -Force -Confirm:$false

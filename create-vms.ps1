@@ -18,7 +18,7 @@ $numcpu = “1“
 $MBram = “512“
 #
 # Specify VM disk size (in MB)
-$MBguestdisk = “1000“
+$MBguestdisk = “2000“
 #
 # Specify VM disk type, available options are Thin, Thick, EagerZeroedThick
 $Typeguestdisk =”Thick“
