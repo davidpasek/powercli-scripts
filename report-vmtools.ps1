@@ -15,7 +15,7 @@
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 #
 # Report type - table, grid, file, csv-file
-  $REPORT_TYPE =  "csv-file"
+  $REPORT_TYPE =  "grid"
 # Report file name without file extension. Extension is automatically added. File is created in current working directory. 
   $REPORT_FILE_NAME = "report-vmtools"
 ######################################################################################################################################
