@@ -77,7 +77,7 @@ Write-Host "Enter vCenter credentials ..."
 $CRED = Get-Credential
 
 
-for($i=1; $i -le 500; $i++) {
+for($i=1; $i -le 2000; $i++) {
 Write-Host "Connecting to vCenter ... $i"
 Connect-VIServer -Server $VC -Credential $CRED -ErrorAction Stop | Out-Null
 # Disconnect-VIserver -Server $VC -Force -Confirm:$false
