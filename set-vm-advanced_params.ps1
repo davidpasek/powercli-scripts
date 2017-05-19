@@ -27,6 +27,7 @@ foreach ($vm_name in $vm_names) {
     New-AdvancedSetting -Entity $vm -Name time.synchronize.tools.startup -Value 0 -Confirm:$false -Force:$true
     New-AdvancedSetting -Entity $vm -Name time.synchronize.tools.enable -Value 0 -Confirm:$false -Force:$true
     New-AdvancedSetting -Entity $vm -Name time.synchronize.resume.host -Value 0 -Confirm:$false -Force:$true
+    New-AdvancedSetting -Entity $vm -Name svga.vgaOnly -Value 0 -Confirm:$false -Force:$true
   } catch {
     Write-Warning -Message "VM doesn't exist";
   }
