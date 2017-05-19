@@ -13,7 +13,7 @@ Write-Host ""
 
 Write-Host -BackgroundColor Gray -ForegroundColor Black "The script goes through all Powered Off Virtual Machines and removes floppy drive for VMs having Guest ID configured as Windows OS."
  
-#Gather all Powered On VM's from vCenter
+#Gather all Powered Off VM's from vCenter
 $vms=GET-VM |  Where-Object {$_.PowerState -eq "PoweredOff" }
 ForEach ($vm in $vms)
 {
