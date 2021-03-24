@@ -1,5 +1,5 @@
 ﻿#Enter your vCenter Host below
-$vcenter = "vc01"
+$vcenter = "vc01.home.uw.cz"
 #Enter the CSV file to be created
 $csvfile = "c:\tmp\VM_creation_date.CSV"
 ################################
