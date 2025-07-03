@@ -1,0 +1,3 @@
+# How to get all VMs restarted by VMware vSphere HA?
+# PowerCLI OneLiner below will do the magic ...
+Get-VIEvent -MaxSamples 100000 -Start (Get-Date).AddDays(-1) -Type Warning | Where {$_.FullFormattedMessage -match "restarted"} | select CreatedTime,FullFormattedMessage | sort CreatedTime -Descending | Format-Table
