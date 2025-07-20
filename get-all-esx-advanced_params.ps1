@@ -1,4 +1,4 @@
-# Array of advanced params
+# Array of advanced params you want to get from all ESX hosts
 $adv_params = "VMkernel.Boot.hyperthreadingMitigation", "VMkernel.Boot.hyperthreadingMitigationIntraVM"
 
 # Initialize an empty array to store results
