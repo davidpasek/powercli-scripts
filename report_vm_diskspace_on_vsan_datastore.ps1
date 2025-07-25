@@ -1,21 +1,21 @@
-# Specify the vSAN Datastore Name
-$vSAN_DatastoreName = "CUST-1001-VSAN"
+# Specify the Datastore Name
+$DatastoreName = "CUST-1001-VSAN"
 
 # Initialize total provisioned and used space
 $totalProvisionedGB = 0
 $totalUsedGB = 0
 
 try {
-    # Get the vSAN datastore object
-    $vSANDatastore = Get-Datastore -Name $vSAN_DatastoreName -ErrorAction Stop
+    # Get the datastore object
+    $Datastore = Get-Datastore -Name $DatastoreName -ErrorAction Stop
 
-    Write-Host "Searching for VMs on vSAN datastore: $($vSANDatastore.Name)..."
+    Write-Host "Searching for VMs on datastore: $($Datastore.Name)..."
 
-    # Get all VMs on the specified vSAN datastore
-    $vmsOnvSAN = Get-VM | Where-Object { $_.DatastoreIdList -contains $vSANDatastore.Id }
+    # Get all VMs on the specified datastore
+    $vmsOnvSAN = Get-VM | Where-Object { $_.DatastoreIdList -contains $Datastore.Id }
 
     if ($vmsOnvSAN.Count -eq 0) {
-        Write-Warning "No VMs found on datastore '$vSAN_DatastoreName'."
+        Write-Warning "No VMs found on datastore '$DatastoreName'."
     } else {
         # Loop through each VM and sum their provisioned and used space
         foreach ($vm in $vmsOnvSAN) {
@@ -29,14 +29,14 @@ try {
         }
 
         Write-Host "----------------------------------------------------"
-        Write-Host "Total Provisioned Space on '$($vSANDatastore.Name)': $([math]::Round($totalProvisionedGB, 2)) GB"
-        Write-Host "Total Used Space on '$($vSANDatastore.Name)': $([math]::Round($totalUsedGB, 2)) GB"
+        Write-Host "Total Provisioned Space on '$($Datastore.Name)': $([math]::Round($totalProvisionedGB, 2)) GB"
+        Write-Host "Total Used Space on '$($Datastore.Name)': $([math]::Round($totalUsedGB, 2)) GB"
         Write-Host "----------------------------------------------------"
     }
 
 }
 catch [System.Management.Automation.ItemNotFoundException] {
-    Write-Error "Datastore '$vSAN_DatastoreName' not found. Please check the name and try again."
+    Write-Error "Datastore '$DatastoreName' not found. Please check the name and try again."
 }
 catch {
     Write-Error "An error occurred: $($_.Exception.Message)"
