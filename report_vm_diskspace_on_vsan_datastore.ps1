@@ -1,8 +1,9 @@
 # Specify the vSAN Datastore Name
 $vSAN_DatastoreName = "CUST-1001-VSAN"
 
-# Initialize total provisioned space
+# Initialize total provisioned and used space
 $totalProvisionedGB = 0
+$totalUsedGB = 0
 
 try {
     # Get the vSAN datastore object
@@ -16,15 +17,20 @@ try {
     if ($vmsOnvSAN.Count -eq 0) {
         Write-Warning "No VMs found on datastore '$vSAN_DatastoreName'."
     } else {
-        # Loop through each VM and sum their provisioned space
+        # Loop through each VM and sum their provisioned and used space
         foreach ($vm in $vmsOnvSAN) {
             $provisionedGB = [math]::Round(($vm.ProvisionedSpaceGB), 2)
+            $usedGB = [math]::Round(($vm.UsedSpaceGB), 2) # Get the used space
+
             $totalProvisionedGB += $provisionedGB
-            Write-Host "VM: $($vm.Name) - Provisioned Space: $($provisionedGB) GB"
+            $totalUsedGB += $usedGB # Add to total used space
+
+            Write-Host "VM: $($vm.Name) - Provisioned Space: $($provisionedGB) GB, Used Space: $($usedGB) GB"
         }
 
         Write-Host "----------------------------------------------------"
         Write-Host "Total Provisioned Space on '$($vSANDatastore.Name)': $([math]::Round($totalProvisionedGB, 2)) GB"
+        Write-Host "Total Used Space on '$($vSANDatastore.Name)': $([math]::Round($totalUsedGB, 2)) GB"
         Write-Host "----------------------------------------------------"
     }
 
