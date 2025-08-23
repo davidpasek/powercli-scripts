@@ -64,3 +64,6 @@ function Get-ClusterDensity {
         return $null
     }
 }
+
+# Example of function usage is 
+# Get-ClusterDensity -ClusterName "CLUSTER01"
